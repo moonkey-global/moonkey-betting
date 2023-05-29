@@ -61,8 +61,9 @@ const GameInfo = ({ sport, league, participants, startsAt }) => (
 	</div>
 );
 
-export default function Game() {
-	const { loading, game, markets } = useSportEvent();
+export default function Game({ address }) {
+	console.log(address);
+	const { loading, game, markets } = useSportEvent(address);
 
 	if (loading) {
 		return <div>Loading...</div>;

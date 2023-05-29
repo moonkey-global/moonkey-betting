@@ -1,5 +1,5 @@
 import ClientPage from './ClientPage';
 
-export default function Home() {
-	return <ClientPage />;
+export default function Home({ params }) {
+	return <ClientPage address={params.slug} />;
 }

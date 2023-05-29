@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/navigation';
 import { gql, useQuery } from '@apollo/client';
 import { aggregateOutcomesByMarkets } from '@azuro-org/toolkit';
 
@@ -40,16 +40,15 @@ const QUERY = `
   }
 `;
 
-export default function useSportEvent() {
-	const { query } = useRouter();
-	console.log(query);
+export default function useSportEvent(query) {
+	// const { query } = useRouter();
 	const { loading, data } = useQuery(
 		gql`
 			${QUERY}
 		`,
 		{
 			variables: {
-				id: query.id,
+				id: query,
 			},
 		}
 	);
