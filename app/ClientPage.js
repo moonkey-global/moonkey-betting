@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import useSportEvents from '@/hooks/useSportEvents';
+import { ClientContext } from '@/components/ClientProvider';
+import { useContext, useEffect, useState } from 'react';
 
 const GameCard = ({ id, sport, league, participants, startsAt }) => (
 	<Link
@@ -34,8 +36,14 @@ export default function Home() {
 	if (loading) {
 		return <div>Loading...</div>;
 	}
+	const { logIn, particle, provider, latestProvider } =
+		useContext(ClientContext);
+	const handleLogin = async () => {
+		if (!particle.auth.isLogin() || !provider) logIn();
+	};
 	return (
 		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
+			{/* <button onClick={handleLogin}>ParticleNetwork</button> */}
 			<div className='grid lg:grid-cols-1 sm:lg:grid-cols-2 md:lg:grid-cols-3 lg:lg:grid-cols-4 gap-2'>
 				{data.games.map((game) => (
 					<GameCard key={game.id} {...game} />

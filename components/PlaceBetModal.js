@@ -1,6 +1,7 @@
 'use client';
 import dayjs from 'dayjs';
 import { getMarketName } from '@azuro-org/dictionaries';
+import usePlaceBet from '@/hooks/usePlaceBet';
 
 const GameInfo = ({ game }) => (
 	<div className='py-4 px-6 rounded-b-xl shadow-xl'>
@@ -40,11 +41,35 @@ const OutcomeInfo = ({ outcome }) => {
 };
 
 const PlaceBetModal = ({ game, outcome, closeModal }) => {
+	const {
+		makeBet,
+		makeAllowance,
+		getTokenBalance,
+		isRightChain,
+		balance,
+		amount,
+		setAmount,
+		isAllowanceFetching,
+		isApproveRequired,
+		approve,
+		isApproving,
+		placeBet,
+	} = usePlaceBet({ outcome, onBetPlace: closeModal });
+	const ba = async () => {
+		await getTokenBalance();
+	};
+	const ma = async () => {
+		await makeAllowance();
+	};
 	const amountsNode = (
 		<div className='mt-4 pt-4 border-t border-gray-300 space-y-2'>
 			<div className='flex items-center justify-between'>
-				<span className='text-md text-gray-400'>Wallet balance</span>
-				<span className='text-md font-semibold'>-</span>
+				<span className='text-md text-gray-400' onClick={ma}>
+					Wallet balance
+				</span>
+				<span className='text-md font-semibold' onClick={ba}>
+					{balance} USDT
+				</span>
 			</div>
 			<div className='flex items-center justify-between'>
 				<span className='text-md text-gray-400'>Bet amount</span>
@@ -52,13 +77,32 @@ const PlaceBetModal = ({ game, outcome, closeModal }) => {
 					className='w-[121px] py-2 px-4 border border-gray-400 text-md text-right font-semibold rounded-md'
 					type='number'
 					placeholder='Bet amount'
+					disabled={isApproving}
+					value={amount}
+					onChange={(event) => setAmount(event.target.value)}
 				/>
 			</div>
 		</div>
 	);
 
 	const button = (
-		<button className='button w-full mt-6 py-2.5 text-center'>Place bet</button>
+		// !isRightChain ? (
+		// 	<div className='mt-6 py-2.5 text-center bg-red-200 rounded-md'>
+		// 		Switch network in your wallet to <b>Aurora</b>
+		// 	</div>
+		// ) :
+		<button
+			className='button w-full mt-6 py-2.5 text-center'
+			// disabled={isAllowanceFetching || isApproving}
+			// onClick={isApproveRequired ? approve : placeBet}
+			onClick={isApproveRequired ? ma : makeBet}
+		>
+			{isApproveRequired
+				? isApproving
+					? 'Approving...'
+					: 'Approve'
+				: 'Place bet'}
+		</button>
 	);
 
 	return (

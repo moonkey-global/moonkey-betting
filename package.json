@@ -12,6 +12,8 @@
     "@apollo/client": "^3.7.14",
     "@azuro-org/dictionaries": "^3.0.1",
     "@azuro-org/toolkit": "^3.0.0",
+    "@particle-network/auth": "^0.14.1",
+    "@particle-network/provider": "^0.14.1",
     "@usedapp/core": "^1.2.10",
     "autoprefixer": "10.4.14",
     "dayjs": "^1.11.7",
