@@ -22,24 +22,22 @@ const QUERY = `
       odds
       createdAt: createdBlockTimestamp
       txHash: createdTxHash
-      outcome {
+      result
+      _conditions {
         id
-        outcomeId
-        condition {
-          id
-          conditionId
-          wonOutcome {
-            outcomeId
-          }
-          core {
+        conditionId
+        outcomesIds
+        wonOutcome {
+          outcomeId
+        }
+        core {
+          address
+          liquidityPool {
             address
-            liquidityPool {
-              address
-            }
           }
         }
       }
-      game {
+      _games {
         id
         sport {
           name
@@ -60,22 +58,22 @@ const QUERY = `
   }
 `;
 
-export default function useBetsHistory() {
+export default function useBetsHistory(account) {
 	//   const { account } = useEthers()
-	const { latestAccount, account } = useContext(ClientContext);
-	if (account)
-		return useQuery(
-			gql`
-				${QUERY}
-			`,
-			{
-				variables: {
-					first: 10, // in this tutorial, only 10 bets are loaded. In production, pagination loading should be implemented to avoid heavy requests which can lead to GraphQL errors
-					where: {
-						actor: account?.toLowerCase(),
-					},
+	// const { latestAccount, account } = useContext(ClientContext);
+
+	return useQuery(
+		gql`
+			${QUERY}
+		`,
+		{
+			variables: {
+				first: 10,
+				where: {
+					actor: account?.toLowerCase(),
 				},
-				skip: !account,
-			}
-		);
+			},
+			skip: !account,
+		}
+	);
 }

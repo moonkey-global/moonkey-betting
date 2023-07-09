@@ -24,9 +24,9 @@ export default function useRedeemBet({ betId }) {
 		});
 		console.log('withdrawPayout: ', txn);
 	};
-	// const { state, send } = useContractFunction(lpContract, 'withdrawPayout', {
-	// 	transactionName: 'Approve',
-	// });
+	const { state, send } = useContractFunction(lpContract, 'withdrawPayout', {
+		transactionName: 'Approve',
+	});
 
 	// const redeem = () => {
 	// 	send(CORE_ADDRESS, betId, false);

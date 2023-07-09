@@ -29,7 +29,7 @@ const QUERY = `
         outcomes {
           id
           outcomeId
-          odds
+          currentOdds
         }
         core {
           address

@@ -33,7 +33,7 @@ function useExtendedState(initialState) {
 }
 
 const apolloClient = new ApolloClient({
-	uri: 'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-polygon', //'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-mumbai-dev-v2',
+	uri: 'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-polygon-v2', //'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-polygon', //'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-mumbai-dev-v2',
 	cache: new InMemoryCache(),
 });
 
@@ -88,7 +88,14 @@ const ConnectButton = ({ logOut, logIn, particle, provider }) => {
 	);
 };
 
-const PageLayout = ({ logOut, logIn, particle, provider, children }) => (
+const PageLayout = ({
+	account,
+	logOut,
+	logIn,
+	particle,
+	provider,
+	children,
+}) => (
 	<div className='container pb-12'>
 		<div className='flex items-center justify-between pt-3 pb-16'>
 			<div className='text-lg font-semibold'>Runaway betting</div>
@@ -96,7 +103,7 @@ const PageLayout = ({ logOut, logIn, particle, provider, children }) => (
 				<Link className='text-md' href='/'>
 					Events
 				</Link>
-				<Link className='text-md' href='/bets-history'>
+				<Link className='text-md' href={`/bets-history/${account}`}>
 					Bets History
 				</Link>
 			</div>
@@ -167,6 +174,7 @@ export default function RootLayout({ children }) {
 			<ClientContext.Provider value={clientProps}>
 				<ApolloProvider client={apolloClient}>
 					<PageLayout
+						account={account}
 						logOut={logout}
 						logIn={login}
 						particle={particle}

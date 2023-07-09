@@ -47,6 +47,7 @@ export default function usePlaceBet({ outcome, onBetPlace }) {
 			);
 			const rawBalance = await USDTCont.callStatic.balanceOf(latestAccount());
 			console.log(rawBalance);
+			// const balance = rawBalance ? ethers.utils.formatUnits(rawBalance, USDT_DECIMALS) : '0'
 			setBalance(ethers.utils.formatUnits(rawBalance, USDT_DECIMALS));
 		} catch (error) {
 			console.error(error);

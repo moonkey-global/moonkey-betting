@@ -35,7 +35,7 @@ const Markets = ({ game, markets }) => {
 													{outcome.selectionName}
 												</span>
 												<span className='font-medium'>
-													{parseFloat(outcome.odds).toFixed(2)}
+													{parseFloat(outcome.currentOdds).toFixed(2)}
 												</span>
 											</div>
 										))}
