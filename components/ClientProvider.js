@@ -38,11 +38,11 @@ const apolloClient = new ApolloClient({
 });
 
 const config = {
-	readOnlyChainId: Polygon.chainId, //Mumbai.chainId,
+	readOnlyChainId: Mumbai.chainId,
 	readOnlyUrls: {
 		// 'https://rpc.ankr.com/polygon_mumbai'
 		[Polygon.chainId]: new ethers.providers.StaticJsonRpcProvider(
-			'https://rpc.ankr.com/polygon'
+			'https://rpc.ankr.com/polygon_mumbai'
 		),
 	},
 };

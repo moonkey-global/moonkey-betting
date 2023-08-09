@@ -81,7 +81,7 @@ const BetInfo = ({ data }) => {
 						)}
 					</div>
 				</div>
-				{(isWin || isCanceled) && !isRedeemed && (
+				{(isWin || isCanceled) && (
 					<div className='self-center'>
 						<button className='button' disabled={isRedeeming} onClick={redeem}>
 							{isRedeeming ? 'Redeeming...' : 'Redeem'}
